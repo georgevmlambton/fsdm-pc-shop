@@ -1,0 +1,63 @@
+.decreaseQuantity,
+.increaseQuantity {
+  border: none;
+  background-color: transparent;
+}
+
+#quantity {
+  width: 150px;
+  text-align: center;
+  border: none;
+}
+
+.stockButton {
+  flex-direction: row;
+  border-radius: 24px;
+  align-items: center;
+}
+
+.stockButton-outline {
+  outline: 3px solid #1b1c1c;
+  outline-offset: 4px;
+}
+
+.stockButton-filled {
+  outline: 3px solid white;
+  outline-offset: 4px;
+  background-color: #2a2f35;
+}
+
+.stockButton-filled .decreaseQuantity,
+.stockButton-filled .increaseQuantity {
+  color: white;
+}
+
+.button-round {
+  border-style: none;
+  align-self: end;
+  color: white;
+  border-radius: 24px;
+  font-size: 20px;
+  width: 190px;
+  height: 45px;
+}
+
+.button-round-filled {
+  background-color: #2c2c34;
+}
+
+@media (max-width: 510px) {
+  .button-round-filled {
+    width: 30vw;
+    height: 40px;
+    font-size: 3.5vw;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+  .button-round-filled {
+    width: 18vw;
+    height: 38px;
+    font-size: 2vw;
+  }
+}

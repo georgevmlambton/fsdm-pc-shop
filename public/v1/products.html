@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Products</title>
+    <!-- import statement for Bootstrap icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/services/user-service.js"></script>
+    <script defer src="js/services/cart-service.js"></script>
+    <script defer src="js/services/product-service.js"></script>
+    <script defer src="js/common.js"></script>
+    <script defer src="js/products.js"></script>
+
+    <link rel="stylesheet" href="/v1/css/index.css" />
+    <link href="/v1/css/products.css" rel="stylesheet" />
+    <link href="/v1/css/common.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header></header>
+
+    <div class="main">
+      <!-- Search bar container -->
+      <div class="container mt-3 py-3">
+        <form id="form">
+          <div class="input-group justify-content-center">
+            <div class="form-outline w-50">
+              <input
+                id="search-input"
+                type="search"
+                class="form-control"
+                placeholder="Search"
+                name="search"
+              />
+            </div>
+            <button
+              id="search-button"
+              class="btn btn-primary bg-sup-dark border-0"
+              type="submit"
+            >
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- Category Filter Container -->
+
+      <div class="container my-3 pt-3">
+        <div class="fs-2 fw-medium">Category</div>
+        <hr />
+        <div class="d-flex flex-row overflow-x-auto text-center fs-6">
+          <a
+            href="/v1/products"
+            class="d-flex d-flex flex-column align-items-center text-decoration-none text-dark mx-2"
+          >
+            <img
+              src="/img/home/c-icons/all.png"
+              class="box p-1 bg-sdown-dark rounded"
+              alt=""
+            />
+            <label for="" class="text-light">.</label>
+          </a>
+          <a
+            href="/v1/products?category=cpu"
+            class="d-row d-flex flex-column align-items-center text-center text-decoration-none text-dark mx-2"
+          >
+            <img
+              src="/img/home/c-icons/cpu.png"
+              class="box p-1 bg-sdown-dark rounded"
+              alt=""
+              srcset=""
+            />
+            <span class="pt-1">CPU</span>
+          </a>
+          <a
+            href="/v1/products?category=gpu"
+            class="d-row d-flex flex-column align-items-center text-center text-decoration-none text-dark mx-2"
+          >
+            <img
+              src="/img/home/c-icons/GPU.png"
+              class="box p-1 bg-sdown-dark rounded"
+              alt=""
+              srcset=""
+            />
+            <span class="pt-1"> </span>
+
+            GPU
+          </a>
+          <a
+            href="/v1/products?category=memory"
+            class="d-row d-flex flex-column align-items-center text-center text-decoration-none text-dark mx-2"
+          >
+            <img
+              src="/img/home/c-icons/ram.png"
+              class="box p-1 bg-sdown-dark rounded"
+              alt=""
+              srcset=""
+            />
+            <span class="pt-1">Memory</span>
+          </a>
+          <a
+            href="/v1/products?category=cases"
+            class="d-row d-flex flex-column align-items-center text-center text-decoration-none text-dark mx-2"
+          >
+            <img
+              src="/img/home/c-icons/cases.png"
+              class="box p-1 bg-sdown-dark rounded"
+              alt=""
+              srcset=""
+            />
+            <span class="pt-1">Cases</span>
+          </a>
+          <a
+            href="/v1/products?category=storage"
+            class="d-row d-flex flex-column align-items-center text-center text-decoration-none text-dark mx-2"
+          >
+            <img
+              src="/img/home/c-icons/storage.png"
+              class="box p-1 bg-sdown-dark rounded"
+              alt=""
+              srcset=""
+            />
+            <span class="pt-1">Storage</span>
+          </a>
+          <a
+            href="/v1/products?category=power"
+            class="d-row d-flex flex-column align-items-center text-center text-decoration-none text-dark mx-2"
+          >
+            <img
+              src="/img/home/c-icons/power.png"
+              class="box p-1 bg-sdown-dark rounded"
+              alt=""
+              srcset=""
+            />
+            <span class="pt-1">Power</span>
+          </a>
+          <a
+            href="/v1/products?category=monitor"
+            class="d-row d-flex flex-column align-items-center text-center text-decoration-none text-dark mx-2"
+          >
+            <img
+              src="/img/home/c-icons/monitor.png"
+              class="box p-1 bg-sdown-dark rounded"
+              alt=""
+              srcset=""
+            />
+            <span class="pt-1">Monitor</span>
+          </a>
+          <a
+            href="/v1/products?category=accessories"
+            class="d-row d-flex flex-column align-items-center text-center text-decoration-none text-dark mx-2"
+          >
+            <img
+              src="/img/home/c-icons/keyboard.png"
+              class="box p-1 bg-sdown-dark rounded"
+              alt=""
+              srcset=""
+            />
+            <span class="pt-1">Accessories</span>
+          </a>
+        </div>
+      </div>
+      <!-- Product search results -->
+
+      <div class="container-fluid pt-3 bg-sup-dark">
+        <div class="container">
+          <div
+            class="row p-0 m-0 row-cols-2 row-cols-md-5 g-3 justify-content-center"
+            id="products-list"
+          ></div>
+          <div
+            class="row p-0 m-0 row-cols-2 row-cols-md-5 g-3 justify-content-center"
+            id="placeholder-product"
+          ></div>
+        </div>
+
+        <div id="pagination_div" class="py-3">
+          <nav class="d-flex justify-content-center">
+            <ul class="pagination m-0 p-0">
+              <li class="page-item previous">
+                <a
+                  class="page-link bg-sdown-dark text-light"
+                  href="#"
+                  aria-label="Previous"
+                  >&laquo;</a
+                >
+              </li>
+              <li class="page-item page-number">
+                <a
+                  class="page-link bg-sdown-dark text-light"
+                  href="#"
+                  data-page="1"
+                >
+                  1
+                </a>
+              </li>
+              <li class="page-item next">
+                <a
+                  class="page-link bg-sdown-dark text-light"
+                  href="#"
+                  aria-label="Next"
+                  >&raquo;</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <footer></footer>
+  </body>
+</html>

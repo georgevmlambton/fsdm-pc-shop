@@ -1,0 +1,23 @@
+.category {
+  border: 2px solid black;
+
+  padding: 36px;
+  color: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.cover {
+  background-image: url('/img/home/cover-bg.png');
+  background-size: cover;
+  background-position: bottom left;
+}
+
+.category {
+  border: 2px solid black;
+
+  padding: 36px;
+  color: black;
+}

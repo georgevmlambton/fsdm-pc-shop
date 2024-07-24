@@ -1,0 +1,43 @@
+{
+  "name": "pc-parts-e-commerce-site",
+  "version": "1.0.0",
+  "description": "A sample e-commerce website made with HTML, CSS, JS, jQuery and Bootstrap",
+  "type": "module",
+  "engines": {
+    "node": ">= 18"
+  },
+  "scripts": {
+    "start": "nodemon -w server -w web server/index.dev.js",
+    "start:prod": "node server/index.js",
+    "build": "vite build",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "lint": "eslint web server --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
+  },
+  "author": "FSDM S23 Group 3",
+  "license": "Unlicense",
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "husky": "^8.0.0",
+    "lint-staged": "^14.0.1",
+    "nodemon": "^3.1.2",
+    "prettier": "3.0.3",
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.7.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.23.1"
+  }
+}

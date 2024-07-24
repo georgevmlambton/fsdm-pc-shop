@@ -1,0 +1,144 @@
+.title-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-item {
+  background-color: #2a2f35;
+  color: white;
+  padding: 0px;
+  margin-bottom: 10px;
+  border-radius: 0px !important;
+}
+
+.cart-total {
+  color: white;
+  padding: 0px;
+}
+
+.product-link {
+  font-size: 15px;
+  color: white;
+  text-decoration: none;
+}
+
+.product-link:hover {
+  font-size: 15px;
+  color: white;
+  text-decoration: underline;
+}
+
+.product-name {
+  padding-right: 30px;
+}
+
+.remove-product {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  color: white;
+  cursor: pointer;
+  font-size: 30px;
+  padding: 5px;
+}
+
+.item-price {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  padding: 0px 10px 10px 0px;
+}
+
+.image-placeholder {
+  width: 100px;
+  height: 100px;
+  aspect-ratio: 1 / 1;
+  background-color: white;
+  border-radius: 10px;
+  margin: 15px;
+}
+
+.quantity-selector {
+  width: 205px;
+  margin: 20px 0px;
+}
+
+#quantity {
+  width: 100px;
+  background-color: transparent;
+  color: white;
+}
+
+.cart-total td {
+  padding: 10px 10px 10px 0px;
+}
+
+.btn-checkout,
+.btn-checkout:hover {
+  background-color: #d9d9d9;
+  border-radius: 0px;
+  color: black;
+}
+
+.checkout-container {
+  background-color: black;
+  padding: 20px;
+}
+
+.summary-container {
+  padding: 20px;
+  background-color: #2a2f35;
+}
+
+.checkout {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.empty-cart-logo {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+footer {
+  padding-top: 50px;
+}
+
+.empty-cart-logo div {
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.empty-cart-logo img {
+  width: 100%;
+}
+
+.modal-dialog {
+  margin-top: 10rem;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.button-round {
+  border-style: none;
+  align-self: end;
+  color: white;
+  border-radius: 24px;
+  font-size: 20px;
+  width: 190px;
+  height: 45px;
+}
+
+.button-round-filled {
+  background-color: #2c2c34;
+}
+
+@media (max-width: 768px) {
+  .summary-container {
+    margin: 20px 12px 0px 12px;
+  }
+  .checkout-container {
+    margin: 0px 12px;
+  }
+}

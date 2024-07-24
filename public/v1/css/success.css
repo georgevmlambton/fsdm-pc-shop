@@ -1,0 +1,36 @@
+.product-item {
+  background-color: #2a2f35;
+  color: white;
+  padding: 0px;
+  margin-bottom: 10px;
+  border-radius: 0px !important;
+}
+
+.product-link {
+  font-size: 15px;
+  color: white;
+  text-decoration: none;
+}
+
+.product-link:hover {
+  font-size: 15px;
+  color: white;
+  text-decoration: underline;
+}
+
+.product-name {
+  padding-right: 30px;
+}
+
+.image-placeholder {
+  width: 100px;
+  height: 100px;
+  aspect-ratio: 1 / 1;
+  background-color: white;
+  border-radius: 10px;
+  margin: 15px;
+}
+
+.order-items {
+  max-width: 800px;
+}

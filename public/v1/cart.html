@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <!-- import statement for Bootstrap icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link
+      href="./libraries/credit-card-validation-type-detection/card-js.min.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./libraries/credit-card-validation-type-detection/card-js.min.js"></script>
+
+    <link rel="stylesheet" href="/v1/css/index.css" />
+    <link rel="stylesheet" href="/v1/css/cart.css" />
+    <link rel="stylesheet" href="/v1/css/buttons.css" />
+    <link href="/v1/css/common.css" rel="stylesheet" />
+    <script src="js/services/user-service.js"></script>
+    <script defer src="js/services/product-service.js"></script>
+    <script defer src="js/services/cart-service.js"></script>
+    <script defer src="js/common.js"></script>
+    <script defer src="js/cart.js"></script>
+  </head>
+  <body>
+    <header></header>
+    <div class="container title-container py-3">
+      <h1>Your Cart</h1>
+      <button
+        class="btn button-round button-round-filled empty-cart-button"
+        data-bs-toggle="modal"
+        data-bs-target="#emptyCartWarning"
+      >
+        Empty Cart
+      </button>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-8">
+          <ul class="list-group cart-items"></ul>
+        </div>
+        <div class="col-12 col-md-4 cart-total">
+          <div class="summary-container">
+            <h3>Summary</h3>
+            <hr style="color: white" />
+            <table>
+              <tr>
+                <td>Subtotal</td>
+                <td class="subtotal">CD</td>
+              </tr>
+              <tr>
+                <td>Taxes</td>
+                <td class="taxes">CD</td>
+              </tr>
+            </table>
+          </div>
+          <div class="checkout-container">
+            <table>
+              <tr>
+                <td><strong>Total</strong></td>
+                <td class="total">CD</td>
+              </tr>
+            </table>
+            <div class="checkout">
+              <button
+                class="btn btn-checkout"
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+              >
+                Checkout
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="empty-cart-logo">
+      <img src="/img/emptyCart.jpg" alt="empty-cart" />
+      <div class="text-center">Your Cart is empty</div>
+    </div>
+    <div
+      class="modal fade"
+      id="emptyCartWarning"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel">Warning</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">Do you want to empty your cart?</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary empty-cart"
+              data-bs-dismiss="modal"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Payment Info Modal -->
+    <form>
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-2 ps-2" id="staticBackdropLabel">
+                Payment Info
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="card-js modal-body">
+              <input
+                class="card-number my-custom-class"
+                name="card-number"
+                required
+              />
+
+              <input
+                class="name"
+                id="the-card-name-id"
+                name="card-holders-name"
+                placeholder="Name on card"
+                required
+              />
+
+              <input class="expiry-month" name="expiry-month" required />
+
+              <input class="expiry-year" name="expiry-year" required />
+
+              <input class="cvc" name="cvc" required />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                id="confirmpayment"
+                type="button"
+                class="btn btn-primary button-continue"
+              >
+                Confirm Payment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <footer></footer>
+  </body>
+</html>

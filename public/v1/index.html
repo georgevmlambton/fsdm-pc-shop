@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <!-- import statement for Bootstrap icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+
+    <link rel="stylesheet" href="/v1/css/index.css" />
+    <link href="/v1/css/home.css" rel="stylesheet" />
+    <link href="/v1/css/common.css" rel="stylesheet" />
+    <script src="js/services/user-service.js"></script>
+    <script defer src="js/services/cart-service.js"></script>
+    <script defer src="js/services/product-service.js"></script>
+    <script defer src="js/common.js"></script>
+    <script defer src="js/home.js"></script>
+    <script defer src="js/index.js"></script>
+  </head>
+  <body>
+    <header></header>
+    <div class="container-fluid cover min-vh-100 p-0">
+      <div class="row justify-content-center m-0">
+        <div
+          class="col-12 col-md-6 text-light d-flex justify-content-end align-items-center py-5"
+        >
+          <p>
+            <span class="fs-2">Ready to level up your device?</span>
+            <br />
+            <span class="fs-2 fw-bold">
+              LETS BUILD YOUR DREAM PC <br />
+              TOGETHER!
+            </span>
+          </p>
+        </div>
+        <div class="col-12 col-md-6 d-flex">
+          <img src="/img/home/custom_pc-s.png" class="m-auto w-75" alt="" />
+        </div>
+      </div>
+    </div>
+    <div class="container py-3">
+      <div class="fs-2 fw-medium my-3">Browse By Category</div>
+      <div class="p-3 d-flex flex-row overflow-x-auto text-center">
+        <a
+          href="/v1/products"
+          class="col-3 col-md-2 d-flex flex-column align-items-center justify-content-center fs-4 p-2 mx-1 border text-decoration-none text-light bg-sdown-dark rounded-4"
+        >
+          All
+        </a>
+        <a
+          href="/v1/products?category=cpu"
+          class="col-3 col-md-2 d-flex flex-column align-items-center p-2 mx-1 border text-decoration-none text-light bg-sdown-dark rounded-4"
+        >
+          <img
+            src="/img/home/c-icons/cpu.png"
+            class="c-icon"
+            alt=""
+            srcset=""
+          />
+          CPU
+        </a>
+        <a
+          href="/v1/products?category=gpu"
+          class="col-3 col-md-2 d-flex flex-column align-items-center p-2 mx-1 border text-decoration-none text-light bg-sdown-dark rounded-4"
+        >
+          <img
+            src="/img/home/c-icons/GPU.png"
+            class="c-icon"
+            alt=""
+            srcset=""
+          />
+          GPU
+        </a>
+        <a
+          href="/v1/products?category=memory"
+          class="col-3 col-md-2 d-flex flex-column align-items-center p-2 mx-1 border text-decoration-none text-light bg-sdown-dark rounded-4"
+        >
+          <img
+            src="/img/home/c-icons/ram.png"
+            class="c-icon"
+            alt=""
+            srcset=""
+          />
+          Memory
+        </a>
+        <a
+          href="/v1/products?category=cases"
+          class="col-3 col-md-2 d-flex flex-column align-items-center p-2 mx-1 border text-decoration-none text-light bg-sdown-dark rounded-4"
+        >
+          <img
+            src="/img/home/c-icons/cases.png"
+            class="c-icon"
+            alt=""
+            srcset=""
+          />
+          Cases
+        </a>
+        <a
+          href="/v1/products?category=storage"
+          class="col-3 col-md-2 d-flex flex-column align-items-center p-2 mx-1 border text-decoration-none text-light bg-sdown-dark rounded-4"
+        >
+          <img
+            src="/img/home/c-icons/storage.png"
+            class="c-icon"
+            alt=""
+            srcset=""
+          />
+          Storage
+        </a>
+        <a
+          href="/v1/products?category=power"
+          class="col-3 col-md-2 d-flex flex-column align-items-center p-2 mx-1 border text-decoration-none text-light bg-sdown-dark rounded-4"
+        >
+          <img
+            src="/img/home/c-icons/power.png"
+            class="c-icon"
+            alt=""
+            srcset=""
+          />
+          Power
+        </a>
+        <a
+          href="/v1/products?category=monitor"
+          class="col-3 col-md-2 d-flex flex-column align-items-center p-2 mx-1 border text-decoration-none text-light bg-sdown-dark rounded-4"
+        >
+          <img
+            src="/img/home/c-icons/monitor.png"
+            class="c-icon"
+            alt=""
+            srcset=""
+          />
+          Monitor
+        </a>
+        <a
+          href="/v1/products?category=accessories"
+          class="col-3 col-md-2 d-flex flex-column align-items-center p-2 mx-1 border text-decoration-none text-light bg-sdown-dark rounded-4"
+        >
+          <img
+            src="/img/home/c-icons/keyboard.png"
+            class="c-icon"
+            alt=""
+            srcset=""
+          />
+          Accessories
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="container-fluid bg-sup-dark p-3 d-flex flex-column justify-content-center align-items-center"
+    >
+      <div
+        id="featured"
+        class="container d-flex flex-column bg-sup-dark align-items-center m-5"
+      >
+        <p class="text-light fs-2 fw-bold">Featured Products</p>
+        <p class="text-light fs-3 text-center">
+          Hurry up! Our best products are running out!
+        </p>
+      </div>
+      <!--Featured Images-->
+      <div class="container-fluid mb-5 bg-sup-dark">
+        <div class="container">
+          <div
+            class="row p-0 m-0 row-cols-2 row-cols-md-5 g-3 justify-content-center fs-3 mb-5"
+            id="products-list"
+          ></div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <img src="/img/home/ad.png" class="w-75 rounded" alt="" />
+      </div>
+    </div>
+    <footer></footer>
+  </body>
+</html>

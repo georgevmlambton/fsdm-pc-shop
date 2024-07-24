@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product</title>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- import statement for Bootstrap icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/services/user-service.js"></script>
+    <script defer src="js/services/cart-service.js"></script>
+    <script defer src="js/services/product-service.js"></script>
+    <script defer src="js/common.js"></script>
+    <script defer src="js/product.js"></script>
+    <link rel="stylesheet" href="/v1/css/index.css" />
+    <link rel="stylesheet" href="/v1/css/buttons.css" />
+    <link href="/v1/css/product.css" rel="stylesheet" />
+    <link href="/v1/css/common.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header></header>
+
+    <div class="container-fluid d-flex" id="productContainer">
+      <div class="row align-items-center column-gap-4">
+        <div
+          class="/img-container col-md-6 col-sm-12 text-center"
+          style="aspect-ratio: 1 / 1 !important"
+        >
+          <div
+            id="carouselExampleIndicators"
+            class="carousel slide"
+            style="object-fit: contain; width: 100%; height: 100%"
+          >
+            <div id="carousel-items" class="carousel-inner"></div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+                style="filter: invert(1); position: relative; right: 30px"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+                style="filter: invert(1); position: relative; left: 30px"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <div class="description col-md-6 col-sm-12">
+          <div class="desc-container">
+            <div class="loader placeholder-glow">
+              <span class="placeholder col-12"></span>
+              <span class="placeholder col-12"></span>
+              <span class="placeholder col-12"></span>
+            </div>
+            <span class="product-title loaded"></span><br />
+            <p class="description-details loaded mt-3 fs-6 lh-sm"></p>
+            <p class="loader mt-3 fs-6 lh-sm placeholder-glow">
+              <span class="placeholder col-12"></span>
+              <span class="placeholder col-12"></span>
+              <span class="placeholder col-12"></span>
+              <span class="placeholder col-12"></span>
+              <span class="placeholder col-12"></span>
+              <span class="placeholder col-12"></span>
+            </p>
+            <!--Price/Stock/Add To cart-->
+            <div class="quantity-selector d-flex justify-content-between">
+              <div class="container-fluid">
+                <div class="loader placeholder-glow">
+                  <span class="placeholder col-4" style="height: 40px"></span>
+                </div>
+                <p class="price loaded"></p>
+                <div class="loader placeholder-glow">
+                  <span class="placeholder col-4"></span>
+                </div>
+                <p class="stockCount loaded">X left in stock</p>
+                <div
+                  class="container-fluid d-flex justify-content-between"
+                  id="stockAndCart"
+                >
+                  <div class="stockButton stockButton-outline">
+                    <button class="increaseQuantity">+</button>
+                    <input
+                      type="number"
+                      id="quantity"
+                      name="quantity"
+                      value="1"
+                      disabled
+                      min="1"
+                    />
+                    <button class="decreaseQuantity" disabled>-</button>
+                  </div>
+                  <div>
+                    <button
+                      class="addToCart button-round button-round-filled"
+                      id="addToCart"
+                    >
+                      ADD TO CART
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--REVIEWS SECTION-->
+    <div class="container-fluid d-inline-block" id="reviewsSection">
+      <div class="container d-inline-block" style="max-width: 768px">
+        <h2 class="mt-4 fw-bold">Reviews</h2>
+        <div id="reviews"></div>
+      </div>
+    </div>
+    <!--Toast-->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="liveToastSuccess"
+        class="toast text-bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-body d-flex justify-content-end">
+          <p class="toast-text-success p-0 m-0">
+            Hello, world! This is a toast message.
+          </p>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+      <div
+        id="liveToastFail"
+        class="toast text-bg-danger"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-body d-flex justify-content-end">
+          <p class="toast-text-fail p-0 m-0">
+            Hello, world! This is a toast message.
+          </p>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+    <footer></footer>
+  </body>
+</html>
