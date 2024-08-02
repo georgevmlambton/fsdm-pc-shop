@@ -15,8 +15,31 @@ export async function updateProducts(products) {
   }
 }
 
-export async function getProducts(limit, skip) {
-  return productsCollection.find().limit(limit).skip(skip).toArray()
+export async function getFeatured() {
+  return await productsCollection
+    .aggregate([{ $sample: { size: 4 } }])
+    .toArray()
+}
+
+export async function getProducts(limit, skip, category, search) {
+  const findObject = {}
+  if (category) {
+    findObject.category = category
+  }
+  if (search) {
+    findObject.name = { $regex: `/${search}/i` }
+  }
+  const totalProducts = await productsCollection.countDocuments(findObject)
+  const products = await productsCollection
+    .find(findObject)
+    .limit(limit)
+    .skip(skip)
+    .toArray()
+  return {
+    total_products: totalProducts,
+    total_pages: Math.ceil(totalProducts / limit),
+    products,
+  }
 }
 
 export async function getProductById(productId) {

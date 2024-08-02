@@ -1,9 +1,11 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import cartService from '../services/cart.service.js'
+import AuthContext from './AuthContext.jsx'
 
 export const CartContext = createContext()
 
 const CartProvider = ({ children }) => {
+  const { showToast } = useContext(AuthContext)
   const [cart, setCart] = useState({
     items: [],
     subTotal: 0,
@@ -13,47 +15,71 @@ const CartProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false)
 
   const updateCart = async () => {
-    const items = await cartService.getCartItems()
-    const products = await cartService.getCartProducts()
+    setIsLoading(true)
+    try {
+      const items = await cartService.getCart()
 
-    const cartItems = items.map((item, i) => ({
-      ...item,
-      product: products[i],
-    }))
+      const subTotal = items.reduce((total, item, i) => {
+        return (total += items[i].quantity * item.product.price)
+      }, 0)
 
-    const subTotal = products.reduce(
-      (total, product, i) => (total += items[i].quantity * product.price),
-      0
-    )
-
-    const taxes = subTotal * 0.13
-    const total = subTotal + taxes
-
-    return {
-      items: cartItems,
-      subTotal,
-      taxes,
-      total,
+      const taxes = subTotal * 0.13
+      const total = subTotal + taxes
+      setCart({
+        items,
+        subTotal,
+        taxes,
+        total,
+      })
+      setIsLoading(false)
+    } catch (e) {
+      setIsLoading(false)
     }
   }
 
   const removeItem = async (item) => {
     await cartService.removeFromCart(item.product.id)
-    updateCart().then((cart) => {
-      setCart(cart)
-    })
+    updateCart()
+  }
+
+  const addToCart = async (id, quantity) => {
+    await cartService.addToCart(id, quantity)
+    updateCart()
+    showToast('Item added to cart')
+  }
+
+  const checkout = async () => {
+    const orderId = await cartService.checkout()
+    setCart({ items: [], subTotal: 0, taxes: 0, total: 0 })
+    return orderId
+  }
+
+  const emptyCart = async () => {
+    await cartService.emptyCart()
+    setCart({ items: [], subTotal: 0, taxes: 0, total: 0 })
+  }
+
+  const setQuantity = async (product_id, quantity) => {
+    await cartService.setQuantity(product_id, quantity)
+    updateCart()
   }
 
   useEffect(() => {
-    setIsLoading(true)
-    updateCart().then((cart) => {
-      setCart(cart)
-      setIsLoading(false)
-    })
+    updateCart()
   }, [])
 
   return (
-    <CartContext.Provider value={{ cart, isLoading, removeItem }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        isLoading,
+        removeItem,
+        addToCart,
+        checkout,
+        emptyCart,
+        setQuantity,
+      }}
+    >
       {children}
     </CartContext.Provider>
   )

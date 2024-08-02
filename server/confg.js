@@ -12,3 +12,4 @@ if (isDev) {
 }
 
 export const mongoUri = process.env['MONGO_URI']
+export const jwtSecret = process.env['JWT_SECRET']

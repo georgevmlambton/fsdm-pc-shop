@@ -1,6 +1,16 @@
-import QuantitySelector from './QuantitySelector.jsx'
-import { AddToCartBtn } from './AddToCartBtn.jsx'
+import { useContext, useState } from 'react'
+import QuantitySelector from './QuantitySelector'
+import AddToCartBtn from './AddToCartBtn'
+import { CartContext } from '../../context/CartContext.jsx'
+
 const Description = ({ product }) => {
+  const { addToCart } = useContext(CartContext)
+  const [quantity, setQuantity] = useState(1)
+
+  const handleQuantityChange = (newQuantity) => {
+    setQuantity(newQuantity)
+  }
+
   return (
     <>
       {product ? (
@@ -19,19 +29,25 @@ const Description = ({ product }) => {
             {/* Stock count */}
             <p className="stockCount">{product.stock} left in stock</p>
             {/* Quantity selector and Add to Cart */}
-
             <div className="row">
               <div className="col-auto">
-                <QuantitySelector />
+                <QuantitySelector
+                  quantity={quantity}
+                  onQuantityChange={handleQuantityChange}
+                />
               </div>
               <div className="col-auto ms-auto">
-                <AddToCartBtn />
+                <AddToCartBtn
+                  onAddToCart={addToCart}
+                  productId={product.id}
+                  quantity={quantity}
+                />
               </div>
             </div>
           </div>
         </div>
       ) : (
-        <div className="description col-12 col-md-6 bg-light placeholder-glow ">
+        <div className="description col-12 col-md-6 bg-light placeholder-glow">
           <h2 className="product-title placeholder-glow">
             <span className="placeholder col-6"></span>
           </h2>
@@ -52,10 +68,13 @@ const Description = ({ product }) => {
           </p>
           <div className="row">
             <div className="col-auto">
-              <QuantitySelector />
+              <QuantitySelector
+                quantity={quantity}
+                onQuantityChange={handleQuantityChange}
+              />
             </div>
             <div className="col-auto ms-auto">
-              <AddToCartBtn />
+              <AddToCartBtn onAddToCart={null} />
             </div>
           </div>
         </div>

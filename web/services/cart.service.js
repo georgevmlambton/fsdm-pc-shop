@@ -3,213 +3,110 @@ import userService from './user.service.js'
 
 class CartService {
   cartItems = []
+  url = '/api/cart'
 
-  url = 'https://fsdm-pc-shop-v1.georgevm.com'
-
-  cartItemsPromise = null
-
-  async getCartItems() {
-    if (this.cartItemsPromise) {
-      return this.cartItemsPromise
-    }
-
-    if (!this.cartItems.length) {
-      this.cartItemsPromise = new Promise((resolve) => {
-        $.ajax({
-          url: `${this.url}/cart`, // Replace URL with the prod url
-          type: 'GET',
-          headers: {
-            Authorization: userService.getAuth(),
-            'Content-Type': 'application/json',
-          },
-          success: (cartRes) => {
-            this.cartItems = cartRes.cart
-            resolve(this.cartItems)
-            this.cartItemsPromise = null
-          },
-          error: function (_, status, error) {
-            console.error(
-              'GET request failed with status',
-              status,
-              'and error',
-              error
-            )
-          },
-        })
+  async getCart() {
+    try {
+      const response = await fetch(`${this.url}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: userService.getAuth(),
+        },
+        method: 'GET',
       })
+      const data = await response.json()
+      const products = []
+      const productsPromises = data.cart.map(async (item, i) => {
+        const product = await productService.getProduct(item.product_id)
+        products.push({ ...data.cart[i], product })
+      })
+      await Promise.all(productsPromises)
 
-      return this.cartItemsPromise
+      return products
+    } catch (e) {
+      throw new Error(e)
     }
-    return this.cartItems
-  }
-
-  async getCartProducts() {
-    var items = await this.getCartItems()
-    var fetchedProdcuts = []
-    var promises = items.map(async (item) => {
-      const product = await productService.getProduct(item.product_id)
-      fetchedProdcuts.push(product)
-    })
-    await Promise.all(promises)
-    return fetchedProdcuts
-  }
-
-  async getCartItemsCount() {
-    var cartCount = await this.getCartItems()
-    return cartCount.length
   }
 
   async addToCart(id, quantity) {
-    let response = await $.ajax({
-      url: `${this.url}/cart/add`, // Replace URL with the prod url
-      type: 'POST',
-      data: JSON.stringify({
-        product_id: id,
-        quantity: quantity,
-      }),
-      headers: {
-        Authorization: userService.getAuth(),
-        'Content-Type': 'application/json',
-      },
-      success: () => {
-        // Add success logic if any
-      },
-      error: function (_, status, error) {
-        console.error(
-          'POST request failed with status',
-          status,
-          'and error',
-          error
-        )
-      },
-    })
-    this.cartItems = response.cart
-    return this.cartItems
+    try {
+      const response = await fetch(`${this.url}/add`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: userService.getAuth(),
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          product_id: id,
+          quantity: quantity,
+        }),
+      })
+      const data = await response.json()
+      return data.cart
+    } catch (e) {
+      throw new Error(e)
+    }
   }
 
   async setQuantity(id, quantity) {
-    let response = await $.ajax({
-      url: `${this.url}/cart/item/` + id, // Replace URL with the prod url
-      type: 'POST',
-      data: JSON.stringify({
+    const response = await fetch(`${this.url}/item/` + id, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: userService.getAuth(),
+      },
+      method: 'POST',
+      body: JSON.stringify({
         quantity: quantity,
       }),
-      headers: {
-        Authorization: userService.getAuth(),
-        'Content-Type': 'application/json',
-      },
-      success: () => {
-        // Add success logic if any
-      },
-      error: function (_, status, error) {
-        console.error(
-          'POST request failed with status',
-          status,
-          'and error',
-          error
-        )
-      },
     })
-    this.cartItems = response.cart
-    return this.cartItems
+
+    return response.cart
   }
 
-  async removeFromCart(id) {
-    let response = await $.ajax({
-      url: `${this.url}/cart/item/` + id, // Replace URL with the prod url
-      type: 'DELETE',
-      headers: {
-        Authorization: userService.getAuth(),
-        'Content-Type': 'application/json',
-      },
-      success: () => {
-        // Add success logic if any
-      },
-      error: function (_, status, error) {
-        console.error(
-          'DELETE request failed with status',
-          status,
-          'and error',
-          error
-        )
-      },
-    })
-    this.cartItems = response.cart
-    return this.cartItems
+  async removeFromCart(product_id) {
+    try {
+      const response = await fetch(`${this.url}/item/` + product_id, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: userService.getAuth(),
+        },
+        method: 'DELETE',
+      })
+      const data = await response.json()
+      return data.cart
+    } catch (e) {
+      throw new Error(e)
+    }
   }
 
   async emptyCart() {
-    let response = await $.ajax({
-      url: `${this.url}/cart`, // Replace URL with the prod url
-      type: 'DELETE',
-      headers: {
-        Authorization: userService.getAuth(),
-        'Content-Type': 'application/json',
-      },
-      success: () => {
-        // Add success logic if any
-      },
-      error: function (_, status, error) {
-        console.error(
-          'DELETE request failed with status',
-          status,
-          'and error',
-          error
-        )
-      },
-    })
-    this.cartItems = response.cart
-    return this.cartItems
+    try {
+      const response = await fetch(`${this.url}/`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: userService.getAuth(),
+        },
+        method: 'DELETE',
+      })
+      await response.json()
+      return []
+    } catch (e) {
+      throw new Error(e)
+    }
   }
 
   async checkout() {
-    let response = await $.ajax({
-      url: `${this.url}/cart/checkout`, // Replace URL with the prod url
-      type: 'POST',
-      headers: {
-        Authorization: userService.getAuth(),
-        'Content-Type': 'application/json',
-      },
-      success: () => {
-        // Add success logic if any
-      },
-      error: function (_, status, error) {
-        console.error(
-          'POST request failed with status',
-          status,
-          'and error',
-          error
-        )
-      },
-    })
-    this.cartItems = []
-    return response.order_id
-  }
-
-  async getOrder(orderID) {
     try {
-      let response = await $.ajax({
-        url: `${this.url}/order/` + orderID, // Replace URL with the prod url
-        type: 'GET',
+      const response = await fetch(`${this.url}/checkout`, {
         headers: {
-          Authorization: userService.getAuth(),
           'Content-Type': 'application/json',
+          Authorization: userService.getAuth(),
         },
-        success: () => {
-          // Add success logic if any
-        },
-        error: function (_, status, error) {
-          console.error(
-            'POST request failed with status',
-            status,
-            'and error',
-            error
-          )
-        },
+        method: 'POST',
       })
-      return response.order
-    } catch {
-      return []
+      return (await response.json()).orderId
+    } catch (e) {
+      throw new Error(e)
     }
   }
 }

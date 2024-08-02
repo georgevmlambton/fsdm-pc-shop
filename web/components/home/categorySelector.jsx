@@ -6,29 +6,34 @@ import storage from '../../assets/img/home/c-icons/storage.png'
 import power from '../../assets/img/home/c-icons/power.png'
 import monitor from '../../assets/img/home/c-icons/monitor.png'
 import keyboard from '../../assets/img/home/c-icons/keyboard.png'
+import { Link } from 'react-router-dom'
 
 const categories = [
-  { href: '#', name: 'All', img: null },
-  { href: '#', name: 'CPU', img: cpu },
-  { href: '#', name: 'GPU', img: gpu },
-  { href: '#', name: 'Memory', img: ram },
-  { href: '#', name: 'Cases', img: cases },
-  { href: '#', name: 'Storage', img: storage },
-  { href: '#', name: 'Power', img: power },
-  { href: '#', name: 'Monitor', img: monitor },
-  { href: '#', name: 'Accessories', img: keyboard },
+  { href: '/products', name: 'All', img: null },
+  { href: '/products?category=cpu', name: 'CPU', img: cpu },
+  { href: '/products?category=gpu', name: 'GPU', img: gpu },
+  { href: '/products?category=memory', name: 'Memory', img: ram },
+  { href: '/products?category=cases', name: 'Cases', img: cases },
+  { href: '/products?category=storage', name: 'Storage', img: storage },
+  { href: '/products?category=power', name: 'Power', img: power },
+  { href: '/products?category=monitor', name: 'Monitor', img: monitor },
+  {
+    href: '/products?category=accessories',
+    name: 'Accessories',
+    img: keyboard,
+  },
 ]
 
 const Category = ({ href, name, img }) => {
   return (
-    <a
-      href={href}
+    <Link
+      to={href}
       style={{ justifyContent: 'center' }}
       className="col-3 col-md-2 d-flex flex-column align-items-center p-2 mx-1 border text-decoration-none text-light bg-sdown-dark rounded-4 "
     >
       {img ? <img src={img} className="c-icon" alt={name} /> : null}
       {name}
-    </a>
+    </Link>
   )
 }
 

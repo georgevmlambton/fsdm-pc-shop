@@ -5,9 +5,17 @@ const router = Router()
 
 router.get('/', async (req, resp) => {
   try {
-    const limit = parseInt(req.query.limit ?? 10)
-    const skip = parseInt(req.query.skip ?? 0)
-    const products = await productsService.getProducts(limit, skip)
+    const limit = parseInt(req.query.limit ?? 50)
+    const page = parseInt(req.query.page ?? 1)
+    const search = req.query.search
+    const category = req.query.category
+    const skip = (page - 1) * limit
+    const products = await productsService.getProducts(
+      limit,
+      skip,
+      category,
+      search
+    )
     resp.json(products)
   } catch (err) {
     resp.status(500).json({ error: err })
@@ -15,9 +23,13 @@ router.get('/', async (req, resp) => {
 })
 
 router.get('/featured', async (req, resp) => {
-  resp.json({
-    products: await productsService.getFeatured(),
-  })
+  try {
+    resp.json({
+      products: await productsService.getFeatured(),
+    })
+  } catch (err) {
+    resp.status(500).json({ error: err })
+  }
 })
 
 router.get('/:product_id', async (req, resp) => {

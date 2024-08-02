@@ -1,0 +1,156 @@
+/* Modal background */
+.fade-in-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
+  overflow: hidden; /* Disable scrolling */
+  height: 100vh; /* Full viewport height */
+}
+
+/* Modal dialog */
+.fade-in-card {
+  max-width: 500px;
+  margin: auto;
+}
+
+/* Modal content */
+.card {
+  background-color: white;
+  border: none;
+  border-radius: 8px;
+  color: #2a2f35;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+}
+
+/* Modal header */
+.h8 {
+  color: #2a2f35;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Form group labels */
+.text {
+  color: #2a2f35;
+  font-weight: bold;
+}
+
+/* Form controls */
+.form-control {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  color: #2a2f35;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.form-control:focus {
+  background-color: #ffffff;
+  border-color: #2a2f35;
+  color: #2a2f35;
+  outline: none;
+  box-shadow: 0 0 5px rgba(42, 47, 53, 0.5);
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #2a2f35;
+  border-color: #2a2f35;
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #1f2428;
+  border-color: #1f2428;
+}
+
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #161a1d;
+  border-color: #161a1d;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background-color: #cccccc;
+  border-color: #cccccc;
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  background-color: #b3b3b3;
+  border-color: #b3b3b3;
+}
+
+.btn-secondary:focus,
+.btn-secondary:active {
+  background-color: #999999;
+  border-color: #999999;
+  box-shadow: none;
+}
+
+/* Add some spacing for the modal footer */
+.modal-footer {
+  border-top: none;
+  padding: 1rem 2rem;
+}
+
+/* Adjust input placeholder color */
+::placeholder {
+  color: #aaaaaa;
+  opacity: 1; /* Override default opacity */
+}
+
+/* Adjust scrollbar for the modal body */
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 4px;
+}
+
+/* Disable body scrolling when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInScreen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.2;
+  }
+}
+
+/* .fade-in-screen {
+  background-color: black;
+  animation: fadeInScreen 0.7s ease-in-out forwards;
+  z-index: 3;
+} */
+
+.fade-in-card {
+  animation: fadeIn 0.7s ease-in-out forwards;
+  z-index: 69;
+}

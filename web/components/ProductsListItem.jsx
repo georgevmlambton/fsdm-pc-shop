@@ -1,11 +1,13 @@
+import { Link } from 'react-router-dom'
+
 export default function ProductListItem({ id, img, productName, price }) {
   return (
     <>
       <div className="col">
         <div className="bg-sdown-dark h-100 overflow-hidden d-flex flex-column">
-          <a
+          <Link
             className="product-link text-decoration-none h-100 d-flex flex-column"
-            href={`/v1/product?id=${id}`}
+            to={`/product/${id}`}
           >
             <div
               className="overflow-hidden d-flex justify-content-center p-1"
@@ -29,7 +31,7 @@ export default function ProductListItem({ id, img, productName, price }) {
             <div className="product-price p-2 text-light fw-bold mt-auto border border-dark">
               {price}
             </div>
-          </a>
+          </Link>
         </div>
       </div>
     </>

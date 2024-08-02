@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import * as productsRepository from '../repositories/products.repository.js'
 
 export async function getFeatured() {
-  return []
+  return await productsRepository.getFeatured()
 }
 
 export async function searchProducts() {
@@ -13,8 +13,8 @@ export async function getProductById(productId) {
   return productsRepository.getProductById(productId)
 }
 
-export async function getProducts(limit, skip) {
-  return productsRepository.getProducts(limit, skip)
+export async function getProducts(limit, skip, category, search) {
+  return productsRepository.getProducts(limit, skip, category, search)
 }
 
 export async function seedProducts() {

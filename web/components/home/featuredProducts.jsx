@@ -3,7 +3,7 @@ import productService from '../../services/product.service.js'
 import ProductListItem from '../ProductsListItem.jsx'
 
 export default function FeaturedProducts() {
-  let [products, setProducts] = useState([])
+  let [products, setProducts] = useState(null)
 
   useEffect(() => {
     const getProducts = async () =>
@@ -32,7 +32,7 @@ export default function FeaturedProducts() {
               className="row p-0 m-0 row-cols-2 row-cols-md-5 g-3 justify-content-center fs-3 mb-5"
               id="products-list"
             >
-              <DisplayProducts products={products} />
+              {products ? <DisplayProducts products={products} /> : <></>}
             </div>
           </div>
         </div>

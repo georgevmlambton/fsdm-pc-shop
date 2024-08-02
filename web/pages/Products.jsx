@@ -210,7 +210,11 @@ export function Products() {
               className="row p-0 m-0 row-cols-2 row-cols-md-5 g-3 justify-content-center"
               id="products-list"
             >
-              <DisplayProducts productsList={products} />
+              {products.length > 0 ? (
+                <DisplayProducts productsList={products} />
+              ) : (
+                <></>
+              )}
             </div>
             <div
               className="row p-0 m-0 row-cols-2 row-cols-md-5 g-3 justify-content-center"
@@ -273,9 +277,9 @@ function DisplayProducts({ productsList }) {
       {productsList.map((product) => {
         let properties = {
           id: product.id,
-          img: product.details.image,
+          img: product.image,
           productName: product.name,
-          price: productService.renderPrice(product.details.price),
+          price: productService.renderPrice(product.price),
         }
         return <ProductListItem key={product.id} {...properties} />
       })}

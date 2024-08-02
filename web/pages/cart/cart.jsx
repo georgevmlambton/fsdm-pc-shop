@@ -1,38 +1,36 @@
-import { useContext } from 'react'
-import './cart.css'
+import { useContext, useState } from 'react'
+import '../../css/cart.css'
 import { CartContext } from '../../context/CartContext.jsx'
 import Loader from '../../components/loader.jsx'
 import { parsePrice } from '../../utils/currency.js'
-import cartService from '../../services/cart.service.js'
+import PaymentInfo from '../../components/modals/PaymentInfoModal.jsx'
+import { Link, useNavigate } from 'react-router-dom'
+import QuantitySelector from '../../components/product/QuantitySelector.jsx'
+import ClearCartModal from '../../components/modals/ClearCartModal.jsx'
+import AuthContext from '../../context/AuthContext.jsx'
 
 const CartItem = ({ item }) => {
-  const { removeItem } = useContext(CartContext)
+  const { removeItem, setQuantity } = useContext(CartContext)
   const quantity = item.quantity
+  const handleQuantityChange = async (newQuantity) => {
+    await setQuantity(item.product.id, newQuantity)
+  }
   return (
     <li className="product-item list-group-item d-flex justify-content-between align-items-center">
       <div className="product-details">
         <div className="d-flex justify-content-between align-items-center">
           <img src={item.product.image} className="image-placeholder" />
           <div className="product">
-            <a className="product-link" href={`/product/${item.product.id}`}>
+            <Link className="product-link" to={`/product/${item.product.id}`}>
               <p className="product-name">{item.product.name}</p>
-            </a>
+            </Link>
 
             <div className="quantity-selector">
-              <div className="stockButton stockButton-filled">
-                <button className="increaseQuantity">+</button>
-                <input
-                  type="number"
-                  id="quantity"
-                  name="quantity"
-                  value={quantity}
-                  disabled
-                  min="1"
-                />
-                <button className="decreaseQuantity" disabled>
-                  -
-                </button>
-              </div>
+              <QuantitySelector
+                quantity={quantity}
+                onQuantityChange={handleQuantityChange}
+                isCart={true}
+              />
             </div>
           </div>
         </div>
@@ -49,12 +47,22 @@ const CartItem = ({ item }) => {
 }
 
 export const Summary = ({ cart }) => {
-  const handleCheckout = async () => {
+  const [displayPaymentInfo, setDisplayPaymentInfo] = useState(false)
+  const navigate = useNavigate()
+  const { checkout } = useContext(CartContext)
+
+  const handleCheckout = async (e) => {
+    e.preventDefault()
     try {
-      await cartService.checkout()
+      const orderId = await checkout()
+      navigate(`/success?orderId=${orderId}`)
     } catch (error) {
-      console.error('CartService.checkou() failed, error: ', error)
+      console.error('CartService.checkout() failed, error: ', error)
     }
+  }
+
+  const handleDisplayPaymentInfo = () => {
+    setDisplayPaymentInfo(!displayPaymentInfo)
   }
 
   return (
@@ -91,24 +99,37 @@ export const Summary = ({ cart }) => {
           <button
             className="btn btn-checkout"
             type="submit"
-            onClick={handleCheckout}
+            onClick={() => setDisplayPaymentInfo(true)}
           >
             Checkout
           </button>
         </div>
       </div>
+
+      {displayPaymentInfo === true && (
+        <PaymentInfo
+          handleCheckout={handleCheckout}
+          displayPaymentInfo={displayPaymentInfo}
+          changeDisplayPaymentInfoState={handleDisplayPaymentInfo}
+        />
+      )}
     </div>
   )
 }
 
 const Cart = () => {
-  const { cart, isLoading } = useContext(CartContext)
-  const handleEmptyCart = async () => {
+  const { cart, isLoading, emptyCart } = useContext(CartContext)
+  const { showToast } = useContext(AuthContext)
+
+  const [clearCartModalState, setClearCartModalState] = useState(false)
+  const handleClearCart = async (e) => {
     try {
-      cartService.emptyCart()
-      window.location.reload()
+      e.preventDefault()
+      await emptyCart()
+      setClearCartModalState(false)
+      showToast('Cart has been emptied')
     } catch (error) {
-      console.error('Unable to empty cart', error)
+      showToast('Failed to empty cart ' + error.message, 'danger')
     }
   }
   return (
@@ -118,7 +139,9 @@ const Cart = () => {
         {cart.items.length > 0 && (
           <button
             className="btn button-round button-round-filled empty-cart-button"
-            onClick={handleEmptyCart}
+            onClick={() => {
+              setClearCartModalState(true)
+            }}
           >
             Empty Cart
           </button>
@@ -142,12 +165,17 @@ const Cart = () => {
           {cart.items.length > 0 && <Summary cart={cart} />}
         </div>
       </div>
-      {cart.items.length === 0 && (
+      {cart.items.length === 0 && !isLoading && (
         <div className="empty-cart-logo">
           <img src="/img/emptyCart.jpg" alt="empty-cart" />
           <div className="text-center">Your Cart is empty</div>
         </div>
       )}
+      <ClearCartModal
+        handleClearCart={handleClearCart}
+        clearCartModalState={clearCartModalState}
+        setClearCartModalState={setClearCartModalState}
+      />
     </>
   )
 }
