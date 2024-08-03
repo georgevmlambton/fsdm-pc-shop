@@ -5,29 +5,20 @@ import { authMiddleware } from '../middleware/auth.middleware.js'
 const router = Router()
 
 router.get('/login', authMiddleware, async (req, resp) => {
-  try {
-    const user = req.user
-    resp.json({ user: { name: user.name, email: user.email } })
-  } catch (err) {
-    resp.status(500).json({ error: err.message })
-  }
+  const user = req.user
+  resp.json({ user: { name: user.name, email: user.email } })
 })
 
 router.post('/login', async (req, resp) => {
-  try {
-    const { email, password } = req.body
+  const { email, password } = req.body
 
-    try {
-      const loginResponse = await userService.login(email, password)
-      resp.json(loginResponse)
-    } catch (error) {
-      console.error('Error: ', error.message)
-      resp.status(500).json({ message: 'Server error' })
-    }
-  } catch (err) {
-    console.error('Error: ', err.message)
-    resp.status(500).json({ error: err.message })
+  const loginResponse = await userService.login(email.toLowerCase(), password)
+
+  if (!loginResponse) {
+    return resp.status(401).json({ error: 'Invalid Credentials' })
   }
+
+  resp.json(loginResponse)
 })
 
 router.post('/register', async (req, resp) => {
@@ -36,16 +27,12 @@ router.post('/register', async (req, resp) => {
   if (!req.body) {
     return resp.status(400).json({ message: 'Invalid data' })
   }
-  try {
-    await userService.registerUser({
-      name,
-      email: email.toLowerCase(),
-      password,
-    })
-    resp.status(201).json({ message: 'User created successfully' })
-  } catch (error) {
-    resp.status(500).json({ message: error.message })
-  }
+  await userService.registerUser({
+    name,
+    email: email.toLowerCase(),
+    password,
+  })
+  resp.status(201).json({ message: 'User created successfully' })
 })
 
 export default router

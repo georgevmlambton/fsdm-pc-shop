@@ -13,7 +13,7 @@ export async function getCart(userId) {
 export async function addToCart(userId, product_id, quantity) {
   try {
     await cartRepository.addToCart(userId, product_id, quantity)
-    return getCart(userId)
+    return await getCart(userId)
   } catch (error) {
     console.error('Error in cart service:', error)
     throw new Error('Failed to add item to cart')
@@ -23,7 +23,7 @@ export async function addToCart(userId, product_id, quantity) {
 export async function removeFromCart(userId, product_id) {
   try {
     await cartRepository.removeFromCart(userId, product_id)
-    return getCart(userId)
+    return await getCart(userId)
   } catch (error) {
     console.error('Error in cart service:', error)
     throw new Error('Failed to remove item from cart')

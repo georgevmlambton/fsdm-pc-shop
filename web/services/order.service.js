@@ -16,7 +16,7 @@ class CartService {
 
       return (await response.json()).order
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 }

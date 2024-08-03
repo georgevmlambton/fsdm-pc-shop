@@ -3,7 +3,7 @@ import AuthContext from '../../context/AuthContext'
 import '../../css/modal.css'
 
 const LoginModal = ({ handleClose, setIsLogin }) => {
-  const { login } = useContext(AuthContext)
+  const { login, showToast } = useContext(AuthContext)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [stayLoggedIn, setStayLoggedIn] = useState(false)
@@ -13,9 +13,9 @@ const LoginModal = ({ handleClose, setIsLogin }) => {
     try {
       await login(email, password, stayLoggedIn)
       handleClose()
+      showToast('Login successful', 'success')
     } catch (error) {
-      console.error(error.response.data.message)
-      alert('Login failed ' + error.response.data.message)
+      showToast(error.message, 'danger')
     }
   }
 

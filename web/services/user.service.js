@@ -52,13 +52,14 @@ class UserService {
         body: JSON.stringify({ email, password }),
       })
       if (!response.ok) {
-        throw new Error(response.statusText)
+        throw new Error((await response.json()).error)
       }
       const data = await response.json()
       this.setUserToken(data.token, stayLoggedIn)
+      console.log(data)
       return data
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 
@@ -74,7 +75,7 @@ class UserService {
       const data = await response.json()
       return data
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 
@@ -88,17 +89,18 @@ class UserService {
         body: JSON.stringify({ name, email, password }),
       })
       if (!response.ok) {
-        throw new Error(response.statusText)
+        throw new Error((await response.json()).error)
       }
       const data = await response.json()
       return data
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 
   logout() {
     localStorage.removeItem('token')
+    sessionStorage.removeItem('token')
   }
 }
 

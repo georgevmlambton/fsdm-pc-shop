@@ -32,13 +32,14 @@ const router = createBrowserRouter([
             path: '/cart',
             element: <Cart />,
           },
+          { path: '/success', element: <Success /> },
         ],
       },
       {
         path: '/products',
         element: <Products />,
       },
-      { path: '/success', element: <Success /> },
+
       {
         path: '*',
         element: <FourOhFour />,

@@ -3,7 +3,7 @@ import AuthContext from '../../context/AuthContext'
 import '../../css/modal.css'
 
 const RegisterModal = ({ handleClose, setIsLogin }) => {
-  const { register } = useContext(AuthContext)
+  const { register, showToast } = useContext(AuthContext)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -13,8 +13,9 @@ const RegisterModal = ({ handleClose, setIsLogin }) => {
     try {
       await register(name, email, password)
       handleClose()
+      showToast('Registration successful', 'success')
     } catch (error) {
-      throw new Error(error.response.data.message)
+      showToast(error.message, 'danger')
     }
   }
 

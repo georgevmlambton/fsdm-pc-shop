@@ -33,7 +33,7 @@ class ProductService {
       const data = await response.json()
       return data
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 
@@ -51,7 +51,7 @@ class ProductService {
       const data = await response.json()
       return data
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 
@@ -91,10 +91,9 @@ class ProductService {
         method: 'GET',
       })
       const data = await response.json()
-      console.log(data)
       return data.products
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 

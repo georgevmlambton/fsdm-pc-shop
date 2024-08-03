@@ -27,7 +27,7 @@ export async function getProducts(limit, skip, category, search) {
     findObject.category = category
   }
   if (search) {
-    findObject.name = { $regex: `/${search}/i` }
+    findObject.name = new RegExp(String.raw`${search}`, 'i')
   }
   const totalProducts = await productsCollection.countDocuments(findObject)
   const products = await productsCollection

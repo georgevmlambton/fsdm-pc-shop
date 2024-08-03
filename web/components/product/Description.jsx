@@ -2,6 +2,7 @@ import { useContext, useState } from 'react'
 import QuantitySelector from './QuantitySelector'
 import AddToCartBtn from './AddToCartBtn'
 import { CartContext } from '../../context/CartContext.jsx'
+import { parsePrice } from '../../utils/currency.js'
 
 const Description = ({ product }) => {
   const { addToCart } = useContext(CartContext)
@@ -25,7 +26,7 @@ const Description = ({ product }) => {
               dangerouslySetInnerHTML={{ __html: product.description }}
             ></p>
             {/* Product price */}
-            <p className="price fw-bold fs-4">C${product.price}</p>
+            <p className="price fw-bold fs-4">{parsePrice(product.price)}</p>
             {/* Stock count */}
             <p className="stockCount">{product.stock} left in stock</p>
             {/* Quantity selector and Add to Cart */}

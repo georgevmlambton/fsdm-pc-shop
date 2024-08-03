@@ -6,7 +6,8 @@ userCollection.createIndex('email')
 
 export async function getUserByEmail(email) {
   try {
-    return await userCollection.findOne({ email })
+    const user = await userCollection.findOne({ email })
+    return user
   } catch (e) {
     throw new Error(e)
   }

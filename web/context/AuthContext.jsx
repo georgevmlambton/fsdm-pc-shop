@@ -45,16 +45,13 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true)
       const data = await userService.login(email, password, stayLoggedIn)
-      console.log(data)
       setUser({
         name: data.user.name,
         email: data.user.email,
       })
-      showToast(`Welcome ${data.user.name}`)
       setLoading(false)
     } catch (e) {
-      console.log(e)
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 
@@ -66,12 +63,11 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     try {
+      setLoading(true)
       await userService.register(name, email, password)
-      showToast(`Registration successful, please login`)
+      setLoading(false)
     } catch (e) {
-      console.log(e)
-      showToast(`${e.message}`)
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 

@@ -24,7 +24,7 @@ class CartService {
 
       return products
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 
@@ -44,23 +44,27 @@ class CartService {
       const data = await response.json()
       return data.cart
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 
   async setQuantity(id, quantity) {
-    const response = await fetch(`${this.url}/item/` + id, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: userService.getAuth(),
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        quantity: quantity,
-      }),
-    })
+    try {
+      const response = await fetch(`${this.url}/item/` + id, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: userService.getAuth(),
+        },
+        method: 'POST',
+        body: JSON.stringify({
+          quantity: quantity,
+        }),
+      })
 
-    return response.cart
+      return response.cart
+    } catch (e) {
+      throw new Error(e.message)
+    }
   }
 
   async removeFromCart(product_id) {
@@ -75,7 +79,7 @@ class CartService {
       const data = await response.json()
       return data.cart
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 
@@ -91,7 +95,7 @@ class CartService {
       await response.json()
       return []
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 
@@ -106,7 +110,7 @@ class CartService {
       })
       return (await response.json()).orderId
     } catch (e) {
-      throw new Error(e)
+      throw new Error(e.message)
     }
   }
 }
