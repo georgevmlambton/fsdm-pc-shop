@@ -9,7 +9,7 @@ const Hero = () => {
             <span className="fs-2">Ready to level up your device?</span>
             <br />
             <span className="fs-2 fw-bold">
-              LETS BUILD YOUR DREAM PC <br />
+              LETS BUILD YOUR DREAM SYSTEM <br />
               TOGETHER!
             </span>
           </p>
